@@ -9,11 +9,11 @@
     <!-- If there exists a connection with this user, show a unfollow link -->
     <div class="bold_text">
     <?php if(isset($connections[$user['user_id']])): ?>
-        <a href='/posts/unfollow/<?=$user['user_id']?>'>Unfollow</a>
+        <a href='/posts/unfollow/<?=$user['user_id']?>'><img src="/images/unfollow.jpg" width="70" height="50" alt="Unfollow"/></a>
 
         <!-- Otherwise, show the follow link -->
     <?php else: ?>
-        <a href='/posts/follow/<?=$user['user_id']?>'>Follow</a>
+        <a href='/posts/follow/<?=$user['user_id']?>'><img src="/images/twitter-follow.png" width="70" height="50" alt="Follow"/></a>
     <?php endif; ?>
     </div>
 
