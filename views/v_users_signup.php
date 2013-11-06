@@ -19,6 +19,27 @@ function MM_validateForm() { //v4.0
 </script>
 <div class="page_content">
 <h2> Sign Up</h2>
+
+    <?php if(isset($error)): ?>
+        <?php
+        switch($error) {
+            case 1:
+                echo "<div class='error'>";
+                echo "Email Already exists, please choose different ID";
+                echo "</div>";
+                break;
+            case 2:
+                echo "<div class='error'>";
+                echo "Login failed. Please double check your password";
+                echo "</div>";
+                break;
+            default:
+                break;
+        }
+        ?>
+
+    <?php endif; ?>
+
 <form method='POST' action='/users/p_signup'>
 
   <span class="text_style"> First Name </span><br>
@@ -38,6 +59,7 @@ function MM_validateForm() { //v4.0
     <br><br>
 
     <input type='submit' class="button_signup" onClick="MM_validateForm('first_name','','R','last_name','','R','email','','RisEmail','password','','R');return document.MM_returnValue" value='Submit'>
+
 
 </form>
 </div>

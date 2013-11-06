@@ -12,60 +12,40 @@
 </head>
 
 <body>
-<div id="wrap">
-   <p><img src="/images/sneakpeek1_r1_c1.gif" width="1024" height="232"  alt=""/></p>
-
-    <div id='menu'>
-
-
-        <!-- Menu for users who are logged in -->
-        <?php if($user): ?>
-
+<div class="container">
+    <header><a href="#"><img src="/images/sneakpeek1_r1_c1.gif" width="962" height="169" alt=""/></a></header>
+    <div class="sidebar1">
+        <nav>
+            <?php if($user): ?>
             <ul>
-                <li>
-                    <a href='/'>Home</a>
-                </li>
-                <li>
-                    <a href='/users/profile'>Profile</a>
-                </li>
-                <li>
-                    <a href='/posts/add'>New Post</a>
-                </li>
-                <li>
-                    <a href='/posts/index'>All Posts</a>
-                </li>
-                <li>
-                    <a href='/posts/following'>Friends' Posts</a>
-                </li>
-                <li>
-                    <a href='/posts/users'>All Users</a>
-                </li>
-                <li>
-                    <a href='/users/logout'>Logout</a>
-                </li>
+                <li><a href="/">Home</a></li>
+                <li><a href="/users/profile">Profile</a></li>
+                <li><a href="/posts/add">New Post</a></li>
+                <li><a href="/posts/index">All Posts</a></li>
+                <li><a href="/posts/following">Friend's Posts</a></li>
+                <li><a href="/posts/users">All users</a></li>
+                <li><a href="/users/logout">Log Out</a></li>
             </ul>
-
-            <!-- Menu options for users who are not logged in -->
-        <?php else: ?>
+            <?php else: ?>
             <ul>
-                <li>
-                    <a href='/'>Home</a>
-                </li>
-                <li>
-                    <a href='/users/signup'>Sign up</a>
-                </li>
-                <li>
-                    <a href='/users/login'>Log in</a>
-                </li>
+                <li><a href='/'>Home</a></li>
+                <li><a href='/users/signup'>Sign up</a></li>
+                <li><a href='/users/login'>Log in</a></li>
             </ul>
-        <?php endif; ?>
-
+            <?php endif; ?>
+        </nav>
     </div>
-	<p>
+    <article class="content">
+
+
 	  <?php if(isset($content)) echo $content; ?>
-	  
+
 	  <?php if(isset($client_files_body)) echo $client_files_body; ?>
-</p>
-</div>	
+    </article>
+
+
+
+</div>
+
 </body>
 </html>

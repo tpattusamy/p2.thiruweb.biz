@@ -8,20 +8,30 @@ class users_controller extends base_controller {
     public function index() {
         echo "This is the index page";
     }
-    public function signup() {
+    public function signup($error = NULL) {
 
-        echo "this is the signup page";
 
         # Setup view
         $this->template->content = View::instance('v_users_signup');
         $this->template->title   = "Sign Up";
-
+        # Pass data to the view
+        $this->template->content->error = $error;
         # Render template
         echo $this->template;
 
     }
 
     public function p_signup() {
+
+        ## if the email has already been created, then alert the person signing up
+        $email = $_POST['email'];
+        $q = "SELECT user_id FROM users WHERE email = '".$email."'";
+        $user_id = DB::instance(DB_NAME)->select_field($q);
+
+        # Error code 2 indicates that user already exists
+        if(isset($user_id)){
+            Router::redirect('/users/signup/1');
+        }
 
         # More data we want stored with the user
         $_POST['created']  = Time::now();
@@ -104,24 +114,83 @@ class users_controller extends base_controller {
 
     }
 
+    public function edit_profile($user_id = NULL) {
 
+        # Setup view
+        $this->template->content = View::instance('v_users_signup');
+        $this->template->title   = $this->user->first_name." - Edit Profile";
 
-    public function profile() {
+        # Find the original post
+        $q = "SELECT *
+                FROM users
+                WHERE user_id = '.$user_id'";
 
-        # If user is blank, they're not logged in; redirect them to the login page
+        # Select original post from the database
+        $post = DB::instance(DB_NAME)->select_field($q);
+
+        #Pass the post content to the view
+        $this->template->content->post = $post;
+
+        #Pass in post_id information
+        $this->template->content->post_id = $post_id;
+
+        # Render template
+        echo $this->template;
+
+    } # End of Method
+    public function p_edit($post_id = NULL) {
+
+        # Associate this post with this user
+        $_POST['user_id']  = $this->user->user_id;
+
+        # Unix timestamp to update when the field was modified
+        $_POST['modified'] = Time::now();
+
+        # Generation the where condition, where the post_id matches
+        $where_condition = "WHERE posts.post_id = ".$post_id;
+
+        # Edit the entry in the database
+        DB::instance(DB_NAME)->update_row('posts', $_POST, $where_condition);
+
+        # Send user to their list of personal posts
+        Router::redirect('/users/profile');
+
+    } # End of Method
+
+    public function profile($error = NULL) {
+
+        # Make sure user is logged in if they want to use anything in this controller
         if(!$this->user) {
             Router::redirect('/users/login');
         }
 
-        # If they weren't redirected away, continue:
-
         # Setup view
         $this->template->content = View::instance('v_users_profile');
-        $this->template->title   = "Profile of".$this->user->first_name;
+
+        #Include user information
+        $this->template->title   = $this->user->first_name." ".$this->user->last_name;
+        $this->template->error = $error;
+
+        //Following block is specific to importing the user's own posts to profile page
+
+        # Build the query (same query as posts/personal/)
+        $q = "SELECT posts.*
+                    FROM posts
+                    WHERE user_id = ".$this->user->user_id.
+            " ORDER BY modified DESC";
+
+        # Run the query
+        $posts = DB::instance(DB_NAME)->select_rows($q);
+
+        # Pass data to the View
+        $this->template->content->posts = $posts;
+
+        // END IMPORT BLOCK
 
         # Render template
         echo $this->template;
-    }
+
+    } # End of Method
     public function logout() {
 
         # Generate and save a new token for next login
