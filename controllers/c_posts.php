@@ -1,10 +1,33 @@
 <?php
 /**
  * Created by JetBrains PhpStorm.
- * User: Delma
+ * User: Thirukumaran Pattusamy
  * Date: 11/5/13
  * Time: 6:50 AM
  * To change this template use File | Settings | File Templates.
+ * ********************************************************************************************************
+ * Function                 Description                             url                     Parm(if any)
+ * ********************************************************************************************************
+ * add()                    Function is to add new posts to the     domain/posts/add
+ *                          blog
+ * p_add()                  Function to add the posts to            domain/posts/p_add
+ *                          respective table
+ * edit_post()              Function to modify the existing post    domain/posts/edit_post      post_id
+ * p_edit                   Function to make modification to
+ *                          Tables
+ * delete_post()            Function to delete the existing post    domain/posts/delete_post    post_id
+ * index()                  To display all the posts entered in     domain/posts/index  
+ *                          this blog   
+ * following()              Function to display the posts of        domain/posts/following  
+ *                          following users 
+ * follow()                 Function to "Follow" other users        domain/posts/follow
+ * Unfollow()               Function to stop following the users    domain
+ *                          aready followed
+ * 
+ * 
+ * ***********************************************************************************************************
+ * 
+ * 
  */
 class posts_controller extends base_controller {
 
