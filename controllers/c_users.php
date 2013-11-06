@@ -1,4 +1,29 @@
 <?php
+/**
+* Created by JetBrains PhpStorm.
+* User: Thirukumaran Pattusamy
+* Date: 11/5/13
+* Time: 6:50 AM
+* To change this template use File | Settings | File Templates.
+* ********************************************************************************************************
+* Function          Description                                     url                     Parm(if any)
+* ********************************************************************************************************
+* index()           Function is to have the default                 domain/users/index
+*                   landing page for the user
+* signup()          Function to add the new user to blog            domain/users/signup
+* p_signup()        Function to add the user to users table         domain/users/p_signup
+* login()           Function to let the user to login to blog       domain/users/login
+* p_login()         Function which performs the authentication for  domain/users/p_login
+*                   Login   
+* profile()         Function will display the posts by the current  domain/users/profile
+*                   user
+* logout()          Function to allow users to logout               domain/users/logout
+
+*
+* ***********************************************************************************************************
+*
+*
+*/
 class users_controller extends base_controller {
 
     public function __construct() {
@@ -114,7 +139,7 @@ class users_controller extends base_controller {
 
     }
 
-    public function edit_profile($user_id = NULL) {
+   /* public function edit_profile($user_id = NULL) {
 
         # Setup view
         $this->template->content = View::instance('v_users_signup');
@@ -156,7 +181,7 @@ class users_controller extends base_controller {
         Router::redirect('/users/profile');
 
     } # End of Method
-
+    **/
     public function profile($error = NULL) {
 
         # Make sure user is logged in if they want to use anything in this controller
